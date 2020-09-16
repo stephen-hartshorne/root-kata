@@ -1,0 +1,13 @@
+{
+  "name": "driving-history",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.1.3"
+  },
+  "scripts": {
+    "test": "mocha"
+  }
+}
