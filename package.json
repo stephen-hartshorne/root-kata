@@ -9,5 +9,8 @@
   },
   "scripts": {
     "test": "mocha"
+  },
+  "dependencies": {
+    "date-fns": "^2.16.1"
   }
 }
