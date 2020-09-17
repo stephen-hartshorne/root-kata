@@ -16,7 +16,13 @@ const { getDriverMetrics } = require('./src/reporter');
     const driverData = createDriverData(commands);
     const metrics = getDriverMetrics(driverData);
 
-    metrics.map(m => console.log(m));
+    metrics.map(m => {
+      if (m.totalMilesDriven === 0) {
+        console.log(`${m.driverName}: 0 miles`);
+      } else {
+        console.log(`${m.driverName}: ${m.totalMilesDriven} miles @ ${m.averageMPH} mph`);
+      }
+    });
   } catch(error) {
     console.log('Unexpected error occurred');
     console.log(error);

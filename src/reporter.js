@@ -19,20 +19,12 @@ function getDriverMetrics(driverData) {
     
     return {
       driverName: driver.name,
-      totalMilesDriven,
-      averageMPH
+      totalMilesDriven: Math.round(totalMilesDriven),
+      averageMPH: Math.round(averageMPH)
     };
   });
-
-  let sortedMetrics = metrics.sort((a, b) => b.totalMilesDriven - a.totalMilesDriven);
   
-  return sortedMetrics.map(metric => {
-    if (metric.totalMilesDriven === 0) {
-      return `${metric.driverName}: 0 miles`;
-    } else {
-      return `${metric.driverName}: ${Math.round(metric.totalMilesDriven)} miles @ ${Math.round(metric.averageMPH)} mph`;
-    }
-  });
+  return metrics.sort((a, b) => b.totalMilesDriven - a.totalMilesDriven);
 }
 
 module.exports = { getDriverMetrics };

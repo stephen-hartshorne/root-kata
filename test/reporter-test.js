@@ -3,7 +3,7 @@ const { expect } = require('chai');
 const parse = require('date-fns/parse');
 
 describe('Driver Reports', () => {
-  it('will output the total miles driven as well as average mph', () => {
+  it('will return metrics containing the driver name, total miles driven, and average mph', () => {
     const driver = {
       name: 'Dan',
       trips: [ 
@@ -15,10 +15,12 @@ describe('Driver Reports', () => {
     const metrics = getDriverMetrics([ driver ]);
 
     expect(metrics).to.have.length(1);
-    expect(metrics[0]).to.equal('Dan: 345 miles @ 69 mph')
+    expect(metrics[0].driverName).to.equal('Dan');
+    expect(metrics[0].totalMilesDriven).to.equal(345);
+    expect(metrics[0].averageMPH).to.equal(69);
   });
 
-  it('will output 0 miles when no trips were taken', () => {
+  it('will output 0 miles and 0 average mph when no trips were taken', () => {
     const driver = {
       name: 'Dan',
       trips: []
@@ -27,7 +29,9 @@ describe('Driver Reports', () => {
     const metrics = getDriverMetrics([driver]);
 
     expect(metrics).to.have.length(1);
-    expect(metrics[0]).to.equal('Dan: 0 miles');
+    expect(metrics[0].driverName).to.equal('Dan');
+    expect(metrics[0].totalMilesDriven).to.equal(0);
+    expect(metrics[0].averageMPH).to.equal(0);
   });
 
   it('will round mph and miles driven to the nearest integer', () => {
@@ -39,7 +43,9 @@ describe('Driver Reports', () => {
     const metrics = getDriverMetrics([driver]);
 
     expect(metrics).to.have.length(1);
-    expect(metrics[0]).to.equal('Dan: 22 miles @ 65 mph');
+    expect(metrics[0].driverName).to.equal('Dan');
+    expect(metrics[0].totalMilesDriven).to.equal(22);
+    expect(metrics[0].averageMPH).to.equal(65);
   });
 
   it('will filter out any trip that averages less than 5 mph', () => {
@@ -54,7 +60,9 @@ describe('Driver Reports', () => {
     const metrics = getDriverMetrics([driver]);
 
     expect(metrics).to.have.length(1);
-    expect(metrics[0]).to.equal('Dan: 5 miles @ 5 mph');
+    expect(metrics[0].driverName).to.equal('Dan');
+    expect(metrics[0].totalMilesDriven).to.equal(5);
+    expect(metrics[0].averageMPH).to.equal(5);
   });
 
   it('will filter out any trip that averages more than 100mph', () => {
@@ -69,34 +77,44 @@ describe('Driver Reports', () => {
     const metrics = getDriverMetrics([driver]);
 
     expect(metrics).to.have.length(1);
-    expect(metrics[0]).to.equal('Dan: 99 miles @ 99 mph');
+    expect(metrics[0].driverName).to.equal('Dan');
+    expect(metrics[0].totalMilesDriven).to.equal(99);
+    expect(metrics[0].averageMPH).to.equal(99);
   });
 
   it('will sort driver metrics based on most miles driven to least', () => {
-     const dan = {
-       name: 'Dan',
-       trips: [
-         createTrip('07:15', '07:45', 17.3),
-         createTrip('06:12', '06:32', 21.8)
-       ]
-     };
-     
-     const lauren = {
-       name: 'Lauren',
-       trips: [ createTrip('12:01', '13:16', 42.0) ]
-     }
-     
-     const kumi = {
-       name: 'Kumi',
-       trips: []
-     }
+    const dan = {
+      name: 'Dan',
+      trips: [
+        createTrip('07:15', '07:45', 17.3),
+        createTrip('06:12', '06:32', 21.8)
+      ]
+    };
+    
+    const lauren = {
+      name: 'Lauren',
+      trips: [ createTrip('12:01', '13:16', 42.0) ]
+    }
+    
+    const kumi = {
+      name: 'Kumi',
+      trips: []
+    }
 
      const metrics = getDriverMetrics([dan, lauren, kumi]);
 
-     expect(metrics).to.have.length(3);
-     expect(metrics[0]).to.equal('Lauren: 42 miles @ 34 mph');
-     expect(metrics[1]).to.equal('Dan: 39 miles @ 47 mph');
-     expect(metrics[2]).to.equal('Kumi: 0 miles');
+    expect(metrics).to.have.length(3);
+    expect(metrics[0].driverName).to.equal('Lauren');
+    expect(metrics[0].totalMilesDriven).to.equal(42);
+    expect(metrics[0].averageMPH).to.equal(34);
+    
+    expect(metrics[1].driverName).to.equal('Dan');
+    expect(metrics[1].totalMilesDriven).to.equal(39);
+    expect(metrics[1].averageMPH).to.equal(47);
+
+    expect(metrics[2].driverName).to.equal('Kumi');
+    expect(metrics[2].totalMilesDriven).to.equal(0);
+    expect(metrics[2].averageMPH).to.equal(0);
   });
 });
 
