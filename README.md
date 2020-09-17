@@ -5,7 +5,7 @@ Version >12.0 see (https://nodejs.org/en/) for installation
 ## Yarn
 Yarn is used for package management. See (https://classic.yarnpkg.com/en/) for installation
 
-## Tests
+## Mocha
 In order to execute tests, `mocha` must be installed. You can use yarn to install this by executing
 
 `yarn global add mocha`
