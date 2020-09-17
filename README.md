@@ -15,6 +15,11 @@ on the command line.
 # Running the application / tests
 
 ## App
+First, you must install the project dependencies. You can do so by executing the following from the terminal: 
+
+`yarn` 
+
+
 The app expects a file to be passed in as input. The entry point is `index.js` An example command is
 
 `node index.js /path/to/my/file.txt`
